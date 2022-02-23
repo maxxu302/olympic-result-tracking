@@ -1,0 +1,157 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Athlete Results Search",
+    "version": "1.0.0"
+  },
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "basePath": "/api/v1",
+  "paths": {
+    "/athletes": {
+      "get": {
+        "summary": "Get all athletes",
+        "description": "Retrieves the list of athletes",
+        "responses": {
+          "200": {
+            "description": "The list of athletes",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/athlete"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a athlete",
+        "parameters": [
+          {
+            "name": "athlete",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Newathlete"
+            }
+          }
+        ],
+        "description": "Creates a single athlete",
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "The newly created athlete",
+            "schema": {
+              "$ref": "#/definitions/athlete"
+            }
+          }
+        }
+      }
+    },
+    "/athletes/{id}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "summary": "Get single athlete",
+        "description": "Get athlete by id",
+        "responses": {
+          "200": {
+            "description": "Single athlete",
+            "schema": {
+              "$ref": "#/definitions/athlete"
+            }
+          }
+        }
+      }
+    },
+    "/result": {
+      "get": {
+        "summary": "Get all results",
+        "description": "Retrieves list of results",
+        "responses": {
+          "200": {
+            "description": "The list of results",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/result"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/results": {
+      "get": {
+        "parameters": [
+          {
+            "in": "query",
+            "name": "athleteid",
+            "type": "integer",
+            "description": "athlete id"
+          },
+          {
+            "in": "query",
+            "name": "sportid",
+            "type": "integer",
+            "description": "sport id"
+          }
+        ],
+        "summary": "Get single athlete",
+        "description": "Get athlete by id",
+        "responses": {
+          "200": {
+            "description": "Single athlete",
+            "schema": {
+              "$ref": "#/definitions/athlete"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "athlete": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "Newathlete": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "result": {
+      "type": "object",
+      "properties": {
+        "athleteId": {
+          "type": "integer"
+        },
+        "sportId": {
+          "type": "integer"
+        },
+        "date": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
