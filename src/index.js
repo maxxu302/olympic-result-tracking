@@ -12,6 +12,7 @@ app.get("/", (request, response) => response.send("Hello World UW restAPI"));
 
 app.get("/api/v1/athletes", (req,res) => res.json(data.athletes));
 
+app.get("/api/v1/sports", (req,res) => res.json(data.sports));
 app.post("/api/v1/athletes", (req, res) => {
     const nextId = data.athletes.length+1;
     const athlete = {id:nextId, ...req.body};
@@ -43,6 +44,15 @@ app.get("/api/v1/athletes/:id", (req, res) => {
         return res.status(404).json({error: "Athlete not found"});
     }
     return res.json(athlete);
+});
+
+app.get("/api/v1/sports/:id", (req, res) => {
+    const id = parseInt(req.params.id);
+    const sport = data.sports.find((spt)=>spt.id===id);
+    if (!sport){
+        return res.status(404).json({error: "Sport not found"});
+    }
+    return res.json(sport);
 });
 
 app.use("/api/v1/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
